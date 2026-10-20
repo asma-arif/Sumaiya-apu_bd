@@ -58,14 +58,13 @@ envelopeContainer.addEventListener('click', () => {
 toCandlesBtn.addEventListener('click', () => {
     transitionStage.classList.remove('active');
     candleStage.classList.add('active');
-    setupMicrophoneBlow();
 });
 
-// Candle Data
+// Candle Steps Data
 const candleSteps = [
-    { title: "First Birthday Candle 🎂", hint: "🎙️ Blow into microphone or tap to make a wish!" },
-    { title: "Second Birthday Candle 🎂", hint: "🕯️ Blow or tap for endless joy & peace!" },
-    { title: "Final Birthday Candle 🎂", hint: "✨ Blow or tap to unlock your Special Letter!" }
+    { title: "First Birthday Candle 🎂", hint: "🕯️ Tap the candle to blow it out & make a wish!" },
+    { title: "Second Birthday Candle 🎂", hint: "🕯️ Tap to blow it out for endless joy & peace!" },
+    { title: "Final Birthday Candle 🎂", hint: "✨ Tap the last candle to unlock your Special Letter!" }
 ];
 
 function blowCurrentCandle() {
@@ -82,43 +81,14 @@ function blowCurrentCandle() {
             candleFlame.style.display = 'block';
             candleTitle.innerText = candleSteps[currentStep - 1].title;
             candleHint.innerText = candleSteps[currentStep - 1].hint;
-            blowBtn.innerText = `🎂 Blow / Tap Candle (${currentStep}/3)`;
+            blowBtn.innerText = `🎂 Tap to Blow Candle (${currentStep}/3)`;
         }
     }, 800);
 }
 
+// Click/Tap to Blow Candle
 blowBtn.addEventListener('click', blowCurrentCandle);
-
-// --- Real Microphone Blow Sensor ---
-function setupMicrophoneBlow() {
-    if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-        navigator.mediaDevices.getUserMedia({ audio: true }).then(stream => {
-            const micAudioCtx = new (window.AudioContext || window.webkitAudioContext)();
-            const mic = micAudioCtx.createMediaStreamSource(stream);
-            const analyser = micAudioCtx.createAnalyser();
-            analyser.fftSize = 256;
-            mic.connect(analyser);
-
-            const bufferLength = analyser.frequencyBinCount;
-            const dataArray = new Uint8Array(bufferLength);
-
-            function checkBlow() {
-                analyser.getByteFrequencyData(dataArray);
-                let sum = 0;
-                for (let i = 0; i < bufferLength; i++) sum += dataArray[i];
-                let average = sum / bufferLength;
-
-                if (average > 65 && candleFlame.style.display !== 'none') {
-                    blowCurrentCandle();
-                }
-                requestAnimationFrame(checkBlow);
-            }
-            checkBlow();
-        }).catch(() => {
-            // Microphone access declined; tap works as backup
-        });
-    }
-}
+document.querySelector('.cake-svg').addEventListener('click', blowCurrentCandle);
 
 // --- Typewriter Effect for Letter ---
 const letterText = `Happy Birthday, Sumaiya Apu! ❤️‍d🎂❤️
@@ -158,11 +128,15 @@ function startTypewriterLetter() {
     typeChar();
 }
 
-// 4. Done Reading -> Reseal Envelope
+// 3. Done Reading -> Reseal Envelope
 doneBtn.addEventListener('click', () => {
     isPlaying = false;
     letterStage.classList.remove('active');
     currentStep = 1;
+    candleFlame.style.display = 'block';
+    candleTitle.innerText = candleSteps[0].title;
+    candleHint.innerText = candleSteps[0].hint;
+    blowBtn.innerText = `🎂 Tap to Blow Candle (1/3)`;
     setTimeout(() => {
         envelopeWrapper.style.display = 'flex';
     }, 400);
