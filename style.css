@@ -44,9 +44,7 @@ body {
     align-items: center;
 }
 
-/* ----------------------------------
-   REALISTIC ENVELOPE WITH WAX SEAL PHOTO
------------------------------------ */
+/* Envelope Styling */
 .envelope-wrapper {
     display: flex;
     flex-direction: column;
@@ -86,7 +84,6 @@ body {
     z-index: 3;
 }
 
-/* Wax Seal Stamp with Picture */
 .wax-seal {
     position: absolute;
     top: 65px;
@@ -131,9 +128,7 @@ body {
     50% { opacity: 1; }
 }
 
-/* ----------------------------------
-   STAGES
------------------------------------ */
+/* Stages */
 .stage {
     display: none;
     width: 100%;
@@ -176,7 +171,7 @@ body {
     line-height: 1.6;
 }
 
-/* Candle Blow Stage */
+/* Candle Styling */
 .candle-card {
     background: rgba(15, 10, 15, 0.95);
     border: 1px solid var(--gold);
@@ -189,11 +184,34 @@ body {
     margin-bottom: 25px;
 }
 
+.cake-svg {
+    width: 110px;
+    height: 110px;
+    margin: 15px 0;
+    filter: drop-shadow(0 0 10px var(--fire-red));
+}
+
+.flame {
+    fill: var(--gold);
+    transform-origin: center bottom;
+    animation: flicker 0.6s infinite alternate;
+}
+
+@keyframes flicker {
+    0% { transform: scale(1) rotate(-2deg); opacity: 0.8; }
+    100% { transform: scale(1.2) rotate(2deg); opacity: 1; filter: drop-shadow(0 0 10px #ff6600); }
+}
+
+.candle-hint {
+    color: #ccc;
+    font-size: 1rem;
+    margin-bottom: 15px;
+}
+
 .candle-box {
     font-size: 1.2rem;
     color: var(--gold);
     cursor: pointer;
-    margin-top: 20px;
     padding: 12px 25px;
     background: rgba(255, 42, 42, 0.15);
     border: 1px solid var(--fire-red);
@@ -208,7 +226,7 @@ body {
     transform: scale(1.05);
 }
 
-/* Standard Readable Letter Stage */
+/* Letter Styling */
 .letter-card {
     background: linear-gradient(145deg, #121218, #1a1518);
     color: #f1f1f1;
@@ -222,6 +240,38 @@ body {
     width: 100%;
     margin-bottom: 25px;
     font-family: 'Hind Siliguri', sans-serif;
+    min-height: 250px;
+}
+
+/* Memory Polaroid Frame */
+.polaroid-frame {
+    background: #ffffff;
+    padding: 12px 12px 25px 12px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.6);
+    transform: rotate(-2deg);
+    transition: transform 0.3s ease;
+    margin-bottom: 30px;
+    max-width: 280px;
+    text-align: center;
+}
+
+.polaroid-frame:hover {
+    transform: rotate(0deg) scale(1.05);
+}
+
+.polaroid-frame img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    border-radius: 4px;
+}
+
+.polaroid-caption {
+    color: #333;
+    font-family: 'Playfair Display', serif;
+    font-size: 0.95rem;
+    margin-top: 10px;
+    font-style: italic;
 }
 
 .action-btn {
