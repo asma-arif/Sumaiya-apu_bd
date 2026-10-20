@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Happy Birthday, Sumaiya Apu! ❤️‍🩹🎂</title>
-    <!-- Google Fonts: Cinzel & Hind Siliguri for Standard Readable Clean Text -->
+    <!-- Google Fonts for Clean & Standard Readable Text -->
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800&family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -12,7 +12,6 @@
             --fire-red: #ff2a2a;
             --deep-red: #8b0000;
             --gold: #ffcc00;
-            --parchment: #181820;
             --text-light: #f5f5f7;
         }
 
@@ -55,7 +54,7 @@
         }
 
         /* ----------------------------------
-           REALISTIC ENVELOPE WITH PROPER FLAP
+           REALISTIC ENVELOPE WITH WAX SEAL PHOTO
         ----------------------------------- */
         .envelope-wrapper {
             display: flex;
@@ -83,7 +82,6 @@
             transform: scale(1.03);
         }
 
-        /* Envelope Flap Shape */
         .envelope-flap {
             position: absolute;
             top: 0;
@@ -97,12 +95,12 @@
             z-index: 3;
         }
 
-        /* Wax Seal Stamp */
+        /* Wax Seal Stamp with Picture */
         .wax-seal {
             position: absolute;
-            top: 75px;
-            width: 75px;
-            height: 75px;
+            top: 65px;
+            width: 85px;
+            height: 85px;
             background: radial-gradient(circle, var(--fire-red), var(--deep-red));
             border-radius: 50%;
             border: 3px solid var(--gold);
@@ -111,7 +109,14 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            font-size: 1.8rem;
+            overflow: hidden;
+        }
+
+        .wax-seal img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
         }
 
         .envelope-title {
@@ -174,35 +179,25 @@
             object-fit: cover;
         }
 
-        /* Candles & Horse Journey Stage */
-        .journey-card {
+        /* Candle Blow Stage */
+        .candle-card {
             background: rgba(15, 10, 15, 0.95);
             border: 1px solid var(--gold);
             border-radius: 16px;
-            padding: 25px;
+            padding: 30px;
             text-align: center;
             width: 100%;
-            max-width: 600px;
+            max-width: 500px;
             box-shadow: 0 0 25px rgba(255, 204, 0, 0.2);
             margin-bottom: 25px;
-        }
-
-        .journey-img {
-            width: 180px;
-            height: 180px;
-            object-fit: cover;
-            border-radius: 50%;
-            border: 3px solid var(--fire-red);
-            box-shadow: 0 0 20px var(--fire-red);
-            margin-bottom: 15px;
         }
 
         .candle-box {
             font-size: 1.2rem;
             color: var(--gold);
             cursor: pointer;
-            margin-top: 15px;
-            padding: 10px 20px;
+            margin-top: 20px;
+            padding: 12px 25px;
             background: rgba(255, 42, 42, 0.15);
             border: 1px solid var(--fire-red);
             border-radius: 25px;
@@ -267,7 +262,9 @@
         <div class="envelope-wrapper" id="envelopeWrapper">
             <div class="envelope-container" id="envelopeContainer">
                 <div class="envelope-flap"></div>
-                <div class="wax-seal">❤️‍🩹</div>
+                <div class="wax-seal">
+                    <img src="image_ab6aa3.jpg" alt="Sumaiya Apu Photo">
+                </div>
             </div>
             <h1 class="envelope-title">Happy Birthday, Sumaiya Apu!</h1>
             <p class="envelope-hint">✨ Tap Envelope to Open ✨</p>
@@ -281,13 +278,13 @@
                     Your browser does not support the video tag.
                 </video>
             </div>
-            <button class="action-btn" id="toJourneyBtn">Proceed to Birthday Journey ➔</button>
+            <button class="action-btn" id="toCandlesBtn">Proceed to Birthday Candles ➔</button>
         </div>
 
-        <!-- STAGE 2: SPIRIT HORSE 3-STAGE CANDLE BLOW -->
-        <div class="stage" id="journeyStage">
-            <div class="journey-card" id="journeyCardBox">
-                <!-- Dynamic Content injected via JS -->
+        <!-- STAGE 2: 3 CONSECUTIVE CANDLE BLOWS -->
+        <div class="stage" id="candleStage">
+            <div class="candle-card" id="candleCardBox">
+                <!-- Dynamic Candle Stages injected via JS -->
             </div>
         </div>
 
@@ -360,9 +357,9 @@ Always remember, no matter what life brings, you have someone in me who genuinel
         const envelopeContainer = document.getElementById('envelopeContainer');
         const videoStage = document.getElementById('videoStage');
         const apuVideo = document.getElementById('apuVideo');
-        const toJourneyBtn = document.getElementById('toJourneyBtn');
-        const journeyStage = document.getElementById('journeyStage');
-        const journeyCardBox = document.getElementById('journeyCardBox');
+        const toCandlesBtn = document.getElementById('toCandlesBtn');
+        const candleStage = document.getElementById('candleStage');
+        const candleCardBox = document.getElementById('candleCardBox');
         const letterStage = document.getElementById('letterStage');
         const doneBtn = document.getElementById('doneBtn');
 
@@ -374,53 +371,49 @@ Always remember, no matter what life brings, you have someone in me who genuinel
             apuVideo.play().catch(() => {});
         });
 
-        // 2. Video done or button clicked -> Go to Horse Journey
-        toJourneyBtn.addEventListener('click', () => {
+        // 2. Video done or button clicked -> Go to Candles
+        toCandlesBtn.addEventListener('click', () => {
             videoStage.classList.remove('active');
             apuVideo.pause();
-            journeyStage.classList.add('active');
-            loadJourneyStage(1);
+            candleStage.classList.add('active');
+            loadCandleStage(1);
         });
 
-        // 3. Spirit Horse 3 Stages Candle Blow
-        const horseStages = [
+        // 3. Three Consecutive Candle Blows
+        const candleSteps = [
             {
-                phase: 1,
-                title: "Stage 1: Young Spirit (The Beginning)",
-                desc: "🕯️ Blow/Tap the 1st candle to grow stronger!",
-                img: "https://images.unsplash.com/photo-1553284965-83fd3e82fa5a?w=400&auto=format&fit=crop&q=80"
+                step: 1,
+                title: "First Birthday Candle 🎂",
+                msg: "🕯️ Blow or tap the 1st candle to make your first wish!"
             },
             {
-                phase: 2,
-                title: "Stage 2: Adult Spirit (Wild & Free)",
-                desc: "🕯️ Blow/Tap the 2nd candle for the next phase!",
-                img: "https://images.unsplash.com/photo-1598974357891-4610c4d7285d?w=400&auto=format&fit=crop&q=80"
+                step: 2,
+                title: "Second Birthday Candle 🎂",
+                msg: "🕯️ Blow or tap the 2nd candle for happiness and peace!"
             },
             {
-                phase: 3,
-                title: "Stage 3: Majestic Spirit (Full Glory)",
-                desc: "🕯️ Blow/Tap the final candle to unlock the Special Wish Letter!",
-                img: "https://images.unsplash.com/photo-1534567153574-2b12153a87f0?w=400&auto=format&fit=crop&q=80"
+                step: 3,
+                title: "Final Birthday Candle 🎂",
+                msg: "🕯️ Blow or tap the final candle to unlock your Special Wish Letter!"
             }
         ];
 
-        function loadJourneyStage(step) {
-            if (step > 3) {
-                journeyStage.classList.remove('active');
+        function loadCandleStage(num) {
+            if (num > 3) {
+                candleStage.classList.remove('active');
                 letterStage.classList.add('active');
                 return;
             }
 
-            const current = horseStages[step - 1];
-            journeyCardBox.innerHTML = `
+            const current = candleSteps[num - 1];
+            candleCardBox.innerHTML = `
                 <h3 style="font-family: 'Cinzel', serif; color: var(--gold); margin-bottom: 12px;">${current.title}</h3>
-                <img src="${current.img}" alt="Spirit Horse" class="journey-img">
-                <p style="color: #ccc; margin-bottom: 10px;">${current.desc}</p>
-                <div class="candle-box" id="blowCandleBtn">🎂 Blow Candle (${step}/3)</div>
+                <p style="color: #ccc; margin-bottom: 15px; font-size: 1.1rem;">${current.msg}</p>
+                <div class="candle-box" id="blowBtn">🎂 Blow Candle (${num}/3)</div>
             `;
 
-            document.getElementById('blowCandleBtn').addEventListener('click', () => {
-                loadJourneyStage(step + 1);
+            document.getElementById('blowBtn').addEventListener('click', () => {
+                loadCandleStage(num + 1);
             });
         }
 
