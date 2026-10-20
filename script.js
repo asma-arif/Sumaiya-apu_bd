@@ -44,6 +44,7 @@ const candleTitle = document.getElementById('candleTitle');
 const candleFlame = document.getElementById('candleFlame');
 const candleHint = document.getElementById('candleHint');
 const blowBtn = document.getElementById('blowBtn');
+const cakeSvg = document.getElementById('cakeSvg');
 
 let currentStep = 1;
 
@@ -86,12 +87,12 @@ function blowCurrentCandle() {
     }, 800);
 }
 
-// Click/Tap to Blow Candle
+// Click/Tap Handlers
 blowBtn.addEventListener('click', blowCurrentCandle);
-document.querySelector('.cake-svg').addEventListener('click', blowCurrentCandle);
+cakeSvg.addEventListener('click', blowCurrentCandle);
 
 // --- Typewriter Effect for Letter ---
-const letterText = `Happy Birthday, Sumaiya Apu! ❤️‍d🎂❤️
+const letterText = `Happy Birthday, Sumaiya Apu! ❤️‍🩹🎂❤️
 
 I honestly don't know where to start, because you are one of those people in my life who mean so much more to me than words can ever explain. Sometimes, I genuinely feel that Allah sends certain people into our lives as a blessing, and you are one of those blessings for me. Alhamdulillah for you. 🥹❤️
 
@@ -111,7 +112,7 @@ Happy Birthday to one of the most special people Allah has blessed my life with.
 
 I love you so much, Sumaiya Apu. May Allah always protect your beautiful heart, keep you surrounded by genuine love, and grant you a life filled with peace, happiness, and endless blessings. You deserve so much more goodness than words could ever express.
 
-Always remember, no matter what life brings, you have someone in me who genuinely cares about you. Lots and lots of love for you, Apu. 🫂❤️‍d✨`;
+Always remember, no matter what life brings, you have someone in me who genuinely cares about you. Lots and lots of love for you, Apu. 🫂❤️‍🩹✨`;
 
 function startTypewriterLetter() {
     const letterContainer = document.getElementById('typewriterLetter');
