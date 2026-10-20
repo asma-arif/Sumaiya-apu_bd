@@ -4,16 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Happy Birthday, Sumaiya Apu! ❤️‍🩹🎂</title>
-    <!-- Google Fonts for Cinematic & Realistic Handwriting Vibe -->
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Cinzel:wght@700;900&family=Hind+Siliguri:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- Google Fonts: Cinzel & Hind Siliguri for Standard Readable Clean Text -->
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800&family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
             --bg-dark: #07070a;
             --fire-red: #ff2a2a;
-            --wax-red: #9e0b0b;
+            --deep-red: #8b0000;
             --gold: #ffcc00;
-            --parchment: #fcf8ee;
-            --text-dark: #221510;
+            --parchment: #181820;
+            --text-light: #f5f5f7;
         }
 
         * {
@@ -24,17 +24,15 @@
 
         body {
             background-color: var(--bg-dark);
-            color: #ffffff;
+            color: var(--text-light);
             font-family: 'Hind Siliguri', sans-serif;
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
             overflow-x: hidden;
-            perspective: 1200px;
         }
 
-        /* Particles background */
         #particleCanvas {
             position: fixed;
             top: 0;
@@ -49,7 +47,7 @@
             position: relative;
             z-index: 2;
             width: 100%;
-            max-width: 850px;
+            max-width: 800px;
             padding: 20px;
             display: flex;
             flex-direction: column;
@@ -57,65 +55,71 @@
         }
 
         /* ----------------------------------
-           REALISTIC 3D WAX SEAL ENVELOPE
+           REALISTIC ENVELOPE WITH PROPER FLAP
         ----------------------------------- */
         .envelope-wrapper {
             display: flex;
             flex-direction: column;
             align-items: center;
-            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.6s ease;
         }
 
         .envelope-container {
             position: relative;
             width: 340px;
-            height: 230px;
-            background: linear-gradient(145deg, #180303, #3a0808);
-            border-radius: 12px;
-            box-shadow: 0 20px 45px rgba(255, 42, 42, 0.25), 0 0 60px rgba(0,0,0,0.95);
-            border: 2px solid rgba(255, 42, 42, 0.6);
+            height: 220px;
+            background: linear-gradient(145deg, #1f0505, #3a0808);
+            border-radius: 8px;
+            box-shadow: 0 20px 40px rgba(255, 42, 42, 0.25), 0 0 50px rgba(0,0,0,0.9);
+            border: 2px solid var(--fire-red);
             cursor: pointer;
-            transition: transform 0.5s ease;
+            transition: transform 0.4s ease;
             display: flex;
             justify-content: center;
             align-items: center;
         }
 
         .envelope-container:hover {
-            transform: scale(1.04) rotate(0.5deg);
+            transform: scale(1.03);
         }
 
-        /* Realistic Wax Seal Stamp */
-        .wax-seal-real {
+        /* Envelope Flap Shape */
+        .envelope-flap {
             position: absolute;
-            width: 105px;
-            height: 105px;
-            background: radial-gradient(circle at 35% 35%, #ff4d4d, #8a0000 70%, #4a0000);
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 0;
+            border-left: 170px solid transparent;
+            border-right: 170px solid transparent;
+            border-top: 120px solid #520c0c;
+            transform-origin: top;
+            z-index: 3;
+        }
+
+        /* Wax Seal Stamp */
+        .wax-seal {
+            position: absolute;
+            top: 75px;
+            width: 75px;
+            height: 75px;
+            background: radial-gradient(circle, var(--fire-red), var(--deep-red));
             border-radius: 50%;
-            border: 3px solid #d4af37;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.8), inset 0 0 15px rgba(255, 204, 0, 0.5), 0 0 20px rgba(255, 42, 42, 0.8);
+            border: 3px solid var(--gold);
+            box-shadow: 0 0 20px var(--fire-red);
             z-index: 4;
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 4px;
-        }
-
-        .wax-seal-real img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            border-radius: 50%;
-            border: 2px solid rgba(255, 204, 0, 0.8);
-            filter: contrast(1.1);
+            font-size: 1.8rem;
         }
 
         .envelope-title {
-            margin-top: 25px;
+            margin-top: 30px;
             font-family: 'Cinzel', serif;
             font-size: 1.8rem;
             color: #ffffff;
-            text-shadow: 0 0 15px var(--fire-red);
+            text-shadow: 0 0 12px var(--fire-red);
             text-align: center;
         }
 
@@ -132,14 +136,14 @@
         }
 
         /* ----------------------------------
-           STAGES (HIDDEN INITIALLY)
+           STAGES
         ----------------------------------- */
         .stage {
             display: none;
             width: 100%;
             opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.8s ease;
+            transform: translateY(20px);
+            transition: all 0.6s ease;
         }
 
         .stage.active {
@@ -150,89 +154,106 @@
             transform: translateY(0);
         }
 
-        /* Stage 1: Video Card */
+        /* Video Stage */
         .video-card {
             background: rgba(18, 8, 12, 0.95);
             border: 1px solid var(--fire-red);
-            border-radius: 18px;
+            border-radius: 16px;
             padding: 15px;
-            box-shadow: 0 0 35px rgba(255, 42, 42, 0.35);
+            box-shadow: 0 0 30px rgba(255, 42, 42, 0.3);
             width: 100%;
-            max-width: 650px;
+            max-width: 600px;
             text-align: center;
+            margin-bottom: 25px;
         }
 
         .video-card video {
             width: 100%;
-            max-height: 420px;
-            border-radius: 12px;
+            max-height: 380px;
+            border-radius: 10px;
             object-fit: cover;
         }
 
-        .open-letter-btn {
-            background: linear-gradient(135deg, #8a0000, #ff2a2a);
-            color: #fff;
+        /* Candles & Horse Journey Stage */
+        .journey-card {
+            background: rgba(15, 10, 15, 0.95);
             border: 1px solid var(--gold);
-            padding: 14px 32px;
-            font-size: 1.2rem;
-            border-radius: 30px;
-            cursor: pointer;
-            box-shadow: 0 0 25px rgba(255, 42, 42, 0.6);
-            transition: all 0.3s ease;
-            margin-top: 25px;
-            font-family: 'Hind Siliguri', sans-serif;
-            font-weight: 700;
-            display: none;
-        }
-
-        .open-letter-btn:hover {
-            transform: scale(1.08);
-            box-shadow: 0 0 40px var(--fire-red);
-        }
-
-        /* Stage 2: Parchment Letter */
-        .scroll-paper {
-            background: var(--parchment);
-            color: var(--text-dark);
-            padding: 40px 30px;
-            border-radius: 12px;
-            box-shadow: inset 0 0 35px rgba(139, 69, 19, 0.25), 0 15px 40px rgba(0,0,0,0.9);
-            border: 2px solid #d4af37;
-            font-family: 'Dancing Script', cursive;
-            font-size: 1.5rem;
-            line-height: 1.8;
-            white-space: pre-line;
+            border-radius: 16px;
+            padding: 25px;
+            text-align: center;
             width: 100%;
-            position: relative;
+            max-width: 600px;
+            box-shadow: 0 0 25px rgba(255, 204, 0, 0.2);
             margin-bottom: 25px;
         }
 
-        .done-btn {
-            background: linear-gradient(135deg, #111, #3a0808);
+        .journey-img {
+            width: 180px;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 3px solid var(--fire-red);
+            box-shadow: 0 0 20px var(--fire-red);
+            margin-bottom: 15px;
+        }
+
+        .candle-box {
+            font-size: 1.2rem;
             color: var(--gold);
+            cursor: pointer;
+            margin-top: 15px;
+            padding: 10px 20px;
+            background: rgba(255, 42, 42, 0.15);
             border: 1px solid var(--fire-red);
-            padding: 14px 35px;
+            border-radius: 25px;
+            display: inline-block;
+            transition: all 0.3s ease;
+        }
+
+        .candle-box:hover {
+            background: var(--fire-red);
+            color: #fff;
+            transform: scale(1.05);
+        }
+
+        /* Standard Readable Letter Stage */
+        .letter-card {
+            background: linear-gradient(145deg, #121218, #1a1518);
+            color: #f1f1f1;
+            padding: 35px 30px;
+            border-radius: 14px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.9);
+            border: 2px solid var(--fire-red);
+            font-size: 1.1rem;
+            line-height: 1.8;
+            white-space: pre-line;
+            width: 100%;
+            margin-bottom: 25px;
+            font-family: 'Hind Siliguri', sans-serif;
+        }
+
+        .action-btn {
+            background: linear-gradient(135deg, var(--deep-red), var(--fire-red));
+            color: #fff;
+            border: none;
+            padding: 14px 30px;
             font-size: 1.1rem;
             border-radius: 30px;
             cursor: pointer;
-            box-shadow: 0 0 20px rgba(255, 42, 42, 0.4);
+            box-shadow: 0 0 20px rgba(255, 42, 42, 0.5);
             transition: all 0.3s ease;
-            font-family: 'Hind Siliguri', sans-serif;
             font-weight: 600;
-            margin-bottom: 30px;
         }
 
-        .done-btn:hover {
+        .action-btn:hover {
             transform: scale(1.06);
-            background: var(--fire-red);
-            color: #fff;
+            box-shadow: 0 0 30px var(--fire-red);
         }
 
         @media(max-width: 600px) {
-            .envelope-container { width: 290px; height: 195px; }
-            .wax-seal-real { width: 90px; height: 90px; }
-            .scroll-paper { font-size: 1.25rem; padding: 25px 18px; }
-            .envelope-title { font-size: 1.4rem; }
+            .envelope-container { width: 300px; height: 200px; }
+            .envelope-flap { border-left-width: 150px; border-right-width: 150px; border-top-width: 105px; }
+            .letter-card { padding: 25px 20px; font-size: 1rem; }
         }
     </style>
 </head>
@@ -242,31 +263,37 @@
 
     <div class="main-wrapper">
         
-        <!-- ENVELOPE FRONT PAGE -->
+        <!-- ENVELOPE INITIAL STAGE -->
         <div class="envelope-wrapper" id="envelopeWrapper">
             <div class="envelope-container" id="envelopeContainer">
-                <div class="wax-seal-real">
-                    <img src="image_ab6aa3.jpg" alt="Sumaiya Apu Wax Seal">
-                </div>
+                <div class="envelope-flap"></div>
+                <div class="wax-seal">❤️‍🩹</div>
             </div>
-            <h1 class="envelope-title">Happy Birthday, Sumaiya Apu! ❤️‍🩹🎂❤️</h1>
-            <p class="envelope-hint">✨ Tap Seal to Open Birthday Wish ✨</p>
+            <h1 class="envelope-title">Happy Birthday, Sumaiya Apu!</h1>
+            <p class="envelope-hint">✨ Tap Envelope to Open ✨</p>
         </div>
 
-        <!-- STAGE 1: VIDEO & SOUNDTRACK -->
+        <!-- STAGE 1: VIDEO & SPIRIT SOUNDTRACK -->
         <div class="stage" id="videoStage">
             <div class="video-card">
-                <video id="apuVideo" poster="image_ab6ac8.jpg" playsinline>
+                <video id="apuVideo" controls playsinline>
                     <source src="sumaiya apu.mp4" type="video/mp4">
                     Your browser does not support the video tag.
                 </video>
             </div>
-            <button class="open-letter-btn" id="openLetterBtn">📜 Read Special Wish Letter</button>
+            <button class="action-btn" id="toJourneyBtn">Proceed to Birthday Journey ➔</button>
         </div>
 
-        <!-- STAGE 2: HANDWRITTEN LETTER -->
+        <!-- STAGE 2: SPIRIT HORSE 3-STAGE CANDLE BLOW -->
+        <div class="stage" id="journeyStage">
+            <div class="journey-card" id="journeyCardBox">
+                <!-- Dynamic Content injected via JS -->
+            </div>
+        </div>
+
+        <!-- STAGE 3: STANDARD READABLE WISH LETTER -->
         <div class="stage" id="letterStage">
-            <div class="scroll-paper">
+            <div class="letter-card">
 Happy Birthday, Sumaiya Apu! ❤️‍🩹🎂❤️
 
 I honestly don't know where to start, because you are one of those people in my life who mean so much more to me than words can ever explain. Sometimes, I genuinely feel that Allah sends certain people into our lives as a blessing, and you are one of those blessings for me. Alhamdulillah for you. 🥹❤️
@@ -289,7 +316,7 @@ I love you so much, Sumaiya Apu. May Allah always protect your beautiful heart, 
 
 Always remember, no matter what life brings, you have someone in me who genuinely cares about you. Lots and lots of love for you, Apu. 🫂❤️‍🩹✨
             </div>
-            <button class="done-btn" id="doneBtn">✨ Done Reading! Fold & Reseal Envelope</button>
+            <button class="action-btn" id="doneBtn">✨ Done Reading! Fold & Reseal Envelope</button>
         </div>
 
     </div>
@@ -328,57 +355,86 @@ Always remember, no matter what life brings, you have someone in me who genuinel
             }, 650);
         }
 
-        // --- Elements & Sequence Logic ---
+        // --- Flow Logic ---
         const envelopeWrapper = document.getElementById('envelopeWrapper');
         const envelopeContainer = document.getElementById('envelopeContainer');
         const videoStage = document.getElementById('videoStage');
         const apuVideo = document.getElementById('apuVideo');
-        const openLetterBtn = document.getElementById('openLetterBtn');
+        const toJourneyBtn = document.getElementById('toJourneyBtn');
+        const journeyStage = document.getElementById('journeyStage');
+        const journeyCardBox = document.getElementById('journeyCardBox');
         const letterStage = document.getElementById('letterStage');
         const doneBtn = document.getElementById('doneBtn');
 
-        // 1. Click Seal -> Hide Envelope, Start Video & Spirit Music
+        // 1. Open Envelope -> Video & Music start
         envelopeContainer.addEventListener('click', () => {
             envelopeWrapper.style.display = 'none';
             videoStage.classList.add('active');
-            
-            // Start Spirit Song
             playSpiritSoundtrack();
-
-            // Play Video automatically
             apuVideo.play().catch(() => {});
         });
 
-        // 2. Video Ended -> Show "Read Special Wish Letter" Button
-        apuVideo.addEventListener('ended', () => {
-            openLetterBtn.style.display = 'inline-block';
-        });
-
-        // Fallback: If video is long or stuck, show button anyway on video click
-        apuVideo.addEventListener('click', () => {
-            openLetterBtn.style.display = 'inline-block';
-        });
-
-        // 3. Click "Read Letter" -> Hide Video, Show Parchment Letter
-        openLetterBtn.addEventListener('click', () => {
+        // 2. Video done or button clicked -> Go to Horse Journey
+        toJourneyBtn.addEventListener('click', () => {
             videoStage.classList.remove('active');
             apuVideo.pause();
-            letterStage.classList.add('active');
+            journeyStage.classList.add('active');
+            loadJourneyStage(1);
         });
 
-        // 4. Click "Done Reading" -> Reseal Envelope & Go Back to Beginning
-        doneBtn.addEventListener('click', () => {
-            isPlaying = false; // Stop soundtrack
-            letterStage.classList.remove('active');
-            openLetterBtn.style.display = 'none';
-            apuVideo.currentTime = 0;
+        // 3. Spirit Horse 3 Stages Candle Blow
+        const horseStages = [
+            {
+                phase: 1,
+                title: "Stage 1: Young Spirit (The Beginning)",
+                desc: "🕯️ Blow/Tap the 1st candle to grow stronger!",
+                img: "https://images.unsplash.com/photo-1553284965-83fd3e82fa5a?w=400&auto=format&fit=crop&q=80"
+            },
+            {
+                phase: 2,
+                title: "Stage 2: Adult Spirit (Wild & Free)",
+                desc: "🕯️ Blow/Tap the 2nd candle for the next phase!",
+                img: "https://images.unsplash.com/photo-1598974357891-4610c4d7285d?w=400&auto=format&fit=crop&q=80"
+            },
+            {
+                phase: 3,
+                title: "Stage 3: Majestic Spirit (Full Glory)",
+                desc: "🕯️ Blow/Tap the final candle to unlock the Special Wish Letter!",
+                img: "https://images.unsplash.com/photo-1534567153574-2b12153a87f0?w=400&auto=format&fit=crop&q=80"
+            }
+        ];
 
+        function loadJourneyStage(step) {
+            if (step > 3) {
+                journeyStage.classList.remove('active');
+                letterStage.classList.add('active');
+                return;
+            }
+
+            const current = horseStages[step - 1];
+            journeyCardBox.innerHTML = `
+                <h3 style="font-family: 'Cinzel', serif; color: var(--gold); margin-bottom: 12px;">${current.title}</h3>
+                <img src="${current.img}" alt="Spirit Horse" class="journey-img">
+                <p style="color: #ccc; margin-bottom: 10px;">${current.desc}</p>
+                <div class="candle-box" id="blowCandleBtn">🎂 Blow Candle (${step}/3)</div>
+            `;
+
+            document.getElementById('blowCandleBtn').addEventListener('click', () => {
+                loadJourneyStage(step + 1);
+            });
+        }
+
+        // 4. Done Reading -> Reseal Envelope
+        doneBtn.addEventListener('click', () => {
+            isPlaying = false;
+            letterStage.classList.remove('active');
+            apuVideo.currentTime = 0;
             setTimeout(() => {
                 envelopeWrapper.style.display = 'flex';
             }, 400);
         });
 
-        // --- Fire Ember Canvas Particle Effect ---
+        // --- Particle FX ---
         const canvas = document.getElementById('particleCanvas');
         const ctx = canvas.getContext('2d');
         let particles = [];
